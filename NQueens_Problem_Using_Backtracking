@@ -3,6 +3,7 @@ using namespace std;
 #define io ios::sync_with_stdio(false);cin.tie(0);
 #define endl "\n"
 int arr[50][50];
+int solution=0;
 
 bool issafe(int x,int y,int n){
 
@@ -27,17 +28,31 @@ bool issafe(int x,int y,int n){
 
 }
 
-bool queens(int x,int n){
-    if(x>=n) return true;
+void print(int n){
+    for(int i=0;i<n;i++){
+        for(int j=0;j<n;j++){
+            cout<<arr[i][j]<<' ';
+        }
+        cout<<endl;
+    }
+}
+
+void queens(int x,int n){
+    if(x>=n){
+        solution++;
+        cout<<"S0lution "<<solution<<endl;
+        print(n);
+        return;
+    }
+
     for(int col=0;col<n;col++){
         if(issafe(x,col,n)){
             arr[x][col]=1;
 
-            if(queens(x+1,n)) return true;
-            else arr[x][col]=0; //backtracking
+            queens(x+1,n);
+            arr[x][col]=0; //backtracking
         }
     }
-    return false;
 }
 
 int main(){
@@ -47,14 +62,6 @@ int main(){
     cin>>n;
     cout<<"The placement chessboard is below:"<<endl;
     io;
-    if(queens(0,n)){
-        for(int i=0;i<n;i++){
-            for(int j=0;j<n;j++){
-                cout<<arr[i][j]<<' ';
-            }
-            cout<<endl;
-        }
-    }
-
+    queens(0,n);
     return 0;
 }
