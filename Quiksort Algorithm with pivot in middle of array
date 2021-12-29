@@ -1,0 +1,53 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define fast ios::sync_with_stdio(false);cin.tie(0);
+#define endl "\n"
+
+int quicksort(int arr[],int low,int high)
+{
+    if(low>=high)
+        return 0;
+
+    int mid=(low+high)/2;
+    int pivot=arr[mid];
+    
+    int i=low,j=high;
+    while(i<j)
+    {
+        if(arr[i]>=pivot && arr[j]<=pivot)
+        {
+            swap(arr[i],arr[j]);
+            i++;
+            j--;
+        }
+        else
+        {
+            i++;
+        }
+    }
+    quicksort(arr,low,mid);
+    quicksort(arr,mid+1,high);
+}
+int main()
+{
+    fast;
+
+    int t;
+    cin>>t;
+
+    int arr[t];
+    for(int &i:arr)cin>>i;
+
+    sort(arr,arr+t);//presort
+    
+    if(t<=0){
+        cout<<"Quicksort cannot be performed"<<endl;
+        return 0;
+    }
+    
+    quicksort(arr,0,t);//quicksort
+
+    for(int i:arr)cout<<i<<' ';
+    cout<<endl;
+    return 0;
+}
